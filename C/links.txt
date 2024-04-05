@@ -1,0 +1,15 @@
+https://architecnologia.es/programacion-c-introduccion
+https://architecnologia.es/programacion-etapas-programacion
+https://architecnologia.es/programacion-el-compilador-gcc
+https://architecnologia.es/programacion-datos-y-operaciones-basicas
+https://architecnologia.es/programacion-estructura-programa-c
+https://architecnologia.es/programacion-estructura-de-un-programa-c-parte-2
+https://architecnologia.es/programacion-estructura-de-control-secuencial-en-c
+https://architecnologia.es/programacion-c-estructura-control-selectivo
+https://architecnologia.es/programacion-c-estructura-control-repetitiva-iteracion-condicional
+https://architecnologia.es/programacion-c-estructuras-control-repetitivo-iteracion-condicional-2
+https://architecnologia.es/programacion-en-c-introduccion-a-los-arreglos
+https://architecnologia.es/programacion-c-modulos
+https://architecnologia.es/programacion-c-creacion-bibliotecas
+https://architecnologia.es/programacion-c-registros-estructuras-datos
+https://architecnologia.es/programacion-c-algoritmos-ordenamiento-busqueda-apuntadores
