@@ -1,92 +1,250 @@
-// Área y Perímetro de Figuras Geométricas
+// Área y perímetro de figuras geométricas
 #include <stdio.h>
 #include <string.h>
-#include <windows.h>
+#include <string>
 #include <stdlib.h>
 #include <math.h>
+#include <cmath>
 #include <locale.h>     // SetLocale en C
 #include <clocale>      // SetLocale en C++
 #include <iostream>
+#include <iomanip>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 using namespace std;
 
-void OperacionesCirculo(float radio, float PI);
-void OperacionesCuadrado(float lado);
-void OperacionesTriangulo(float base, float altura);
+const double PI = 3.14159265358979323846;
 
-main()
+void OperacionesCirculo(double radio);
+void OperacionesCuadrado(double lado);
+void OperacionesTriangulo(double ladoA, double ladoB, double ladoC);
+void OperacionesRectangulo(double base, double altura);
+void OperacionesRombo(double lado, double diagonalMayor, double diagonalMenor);
+void OperacionesTrapecio(double baseMayor, double baseMenor, double ladoA,
+                         double ladoB, double altura);
+void OperacionesPoligonoRegular(int numeroLados, double lado);
+bool MedidaPositiva(double medida);
+
+int main()
 {
+#ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
-	// setlocale(LC_ALL, ""); // Aceptar acentos
+#endif
 
-	int opcion;
-	const float PI = 3.1416;
-	float radio, lado, base, altura;
-	string respuesta = "si";
+    int opcion;
+    string respuesta = "si";
 
-	while(respuesta == "SI" || respuesta == "Si" || respuesta == "si" || respuesta == "S" || respuesta == "s" || respuesta == "yes" || respuesta == "Y" || respuesta == "y")
+    cout << fixed << setprecision(2);
+
+    while (respuesta == "SI" || respuesta == "Si" || respuesta == "si" ||
+           respuesta == "S" || respuesta == "s" || respuesta == "yes" ||
+           respuesta == "Y" || respuesta == "y")
     {
-        system("cls"); // Limpiar Pantalla (Clear Screen)
+        cout << ".: MENÚ :.\n";
+        cout << "Área y perímetro de figuras geométricas\n";
+        cout << "1.- Círculo\n";
+        cout << "2.- Cuadrado\n";
+        cout << "3.- Triángulo\n";
+        cout << "4.- Rectángulo\n";
+        cout << "5.- Rombo\n";
+        cout << "6.- Trapecio\n";
+        cout << "7.- Polígono regular\n";
+        cout << "Selecciona una opción: ";
+        cin >> opcion;
 
-        printf(".: MENÚ :.\n");
-        printf("Área y Perímetro de Figuras Geométricas\n");
-        cout << "1.- Círculo" << endl;
-        cout << "2.- Cuadrado" << endl;
-        cout << "3.- Triángulo" << endl;
-        printf("Selecciona una opción: ");
-        scanf("%d", &opcion);
+        cout << "\n****************************\n";
 
-        switch(opcion)
+        switch (opcion)
         {
-            case 1: printf("\n****************************\n");
-            		printf("CÍRCULO\n");
-					printf("Ingresa el radio: ");
-                    scanf("%f", &radio);
-                    OperacionesCirculo(radio, PI);
-                    cout << "\n****************************\n";
-                    break;
-            case 2: printf("\n****************************\n");
-            		printf("CUADRADO\n");
-					cout << "Ingresa el lado: ";
-                    cin >> lado;
-                    OperacionesCuadrado(lado);
-                    cout << "\n****************************\n";
-                    break;
-            case 3: printf("\n****************************\n");
-            		printf("TRIÁNGULO\n");
-					printf("Ingresa la base: ");
-                    scanf("%f", &lado);
-                    cout << "Ingresa la altura: ";
-                    cin >> altura;
-                    OperacionesTriangulo(lado, altura);
-                    cout << "\n****************************\n";
-                    break;
+            case 1:
+            {
+                double radio;
+                cout << "CÍRCULO\nIngresa el radio: ";
+                cin >> radio;
+                OperacionesCirculo(radio);
+                break;
+            }
+            case 2:
+            {
+                double lado;
+                cout << "CUADRADO\nIngresa el lado: ";
+                cin >> lado;
+                OperacionesCuadrado(lado);
+                break;
+            }
+            case 3:
+            {
+                double ladoA, ladoB, ladoC;
+                cout << "TRIÁNGULO\nIngresa el primer lado: ";
+                cin >> ladoA;
+                cout << "Ingresa el segundo lado: ";
+                cin >> ladoB;
+                cout << "Ingresa el tercer lado: ";
+                cin >> ladoC;
+                OperacionesTriangulo(ladoA, ladoB, ladoC);
+                break;
+            }
+            case 4:
+            {
+                double base, altura;
+                cout << "RECTÁNGULO\nIngresa la base: ";
+                cin >> base;
+                cout << "Ingresa la altura: ";
+                cin >> altura;
+                OperacionesRectangulo(base, altura);
+                break;
+            }
+            case 5:
+            {
+                double lado, diagonalMayor, diagonalMenor;
+                cout << "ROMBO\nIngresa el lado: ";
+                cin >> lado;
+                cout << "Ingresa la diagonal mayor: ";
+                cin >> diagonalMayor;
+                cout << "Ingresa la diagonal menor: ";
+                cin >> diagonalMenor;
+                OperacionesRombo(lado, diagonalMayor, diagonalMenor);
+                break;
+            }
+            case 6:
+            {
+                double baseMayor, baseMenor, ladoA, ladoB, altura;
+                cout << "TRAPECIO\nIngresa la base mayor: ";
+                cin >> baseMayor;
+                cout << "Ingresa la base menor: ";
+                cin >> baseMenor;
+                cout << "Ingresa el primer lado no paralelo: ";
+                cin >> ladoA;
+                cout << "Ingresa el segundo lado no paralelo: ";
+                cin >> ladoB;
+                cout << "Ingresa la altura: ";
+                cin >> altura;
+                OperacionesTrapecio(baseMayor, baseMenor, ladoA, ladoB, altura);
+                break;
+            }
+            case 7:
+            {
+                int numeroLados;
+                double lado;
+                cout << "POLÍGONO REGULAR\nIngresa el número de lados: ";
+                cin >> numeroLados;
+                cout << "Ingresa la longitud de cada lado: ";
+                cin >> lado;
+                OperacionesPoligonoRegular(numeroLados, lado);
+                break;
+            }
             default:
-                    cout << "Opción no válida" << endl;
-                    break;
+                cout << "Opción no válida.\n";
+                break;
         }
 
-        cout << "\n¿Quieres continuar?(si/no): ";
+        cout << "****************************\n";
+        cout << "\n¿Quieres continuar? (si/no): ";
         cin >> respuesta;
     }
 
-	system("Pause"); // getchar();
+    system("pause");    // Pase a getchar() si no funciona en tu sistema
+    return 0;
 }
 
-void OperacionesCirculo(float radio, float PI)
+bool MedidaPositiva(double medida)
 {
-	printf("El Perímetro es = %f u\n", 2 * PI * radio);
-	cout << "El Área es = " << PI * pow(radio, 2) << " u2" << endl;
+    if (medida <= 0)
+    {
+        cout << "Error: todas las medidas deben ser mayores que cero.\n";
+        return false;
+    }
+    return true;
 }
 
-void OperacionesCuadrado(float lado)
+void OperacionesCirculo(double radio)
 {
-    printf("El Perímetro es = %f u\n", 4 * lado);
-    cout << "El Área es = " << lado * lado << " u2" << endl;
+    if (!MedidaPositiva(radio)) return;
+
+    cout << "Diámetro = " << 2 * radio << " u\n";
+    cout << "Perímetro = " << 2 * PI * radio << " u\n";
+    cout << "Área = " << PI * pow(radio, 2) << " u²\n";
 }
 
-void OperacionesTriangulo(float base, float altura)
+void OperacionesCuadrado(double lado)
 {
-    printf("El Perímetro es = %f u\n", 3 * base);
-    cout << "El Área es = " << (base * altura) / 2 << " u2" << endl;
+    if (!MedidaPositiva(lado)) return;
+
+    cout << "Perímetro = " << 4 * lado << " u\n";
+    cout << "Área = " << lado * lado << " u²\n";
+    cout << "Diagonal = " << lado * sqrt(2.0) << " u\n";
+}
+
+void OperacionesTriangulo(double ladoA, double ladoB, double ladoC)
+{
+    if (!MedidaPositiva(ladoA) || !MedidaPositiva(ladoB) ||
+        !MedidaPositiva(ladoC)) return;
+
+    if (ladoA + ladoB <= ladoC || ladoA + ladoC <= ladoB ||
+        ladoB + ladoC <= ladoA)
+    {
+        cout << "Error: las medidas no forman un triángulo.\n";
+        return;
+    }
+
+    const double perimetro = ladoA + ladoB + ladoC;
+    const double semiperimetro = perimetro / 2.0;
+    const double area = sqrt(semiperimetro * (semiperimetro - ladoA) *
+                             (semiperimetro - ladoB) * (semiperimetro - ladoC));
+
+    cout << "Perímetro = " << perimetro << " u\n";
+    cout << "Semiperímetro = " << semiperimetro << " u\n";
+    cout << "Área = " << area << " u²\n";
+    cout << "Altura respecto al primer lado = " << (2 * area) / ladoA << " u\n";
+}
+
+void OperacionesRectangulo(double base, double altura)
+{
+    if (!MedidaPositiva(base) || !MedidaPositiva(altura)) return;
+
+    cout << "Perímetro = " << 2 * (base + altura) << " u\n";
+    cout << "Área = " << base * altura << " u²\n";
+    cout << "Diagonal = " << hypot(base, altura) << " u\n";
+}
+
+void OperacionesRombo(double lado, double diagonalMayor, double diagonalMenor)
+{
+    if (!MedidaPositiva(lado) || !MedidaPositiva(diagonalMayor) ||
+        !MedidaPositiva(diagonalMenor)) return;
+
+    cout << "Perímetro = " << 4 * lado << " u\n";
+    cout << "Área = " << (diagonalMayor * diagonalMenor) / 2.0 << " u²\n";
+}
+
+void OperacionesTrapecio(double baseMayor, double baseMenor, double ladoA,
+                         double ladoB, double altura)
+{
+    if (!MedidaPositiva(baseMayor) || !MedidaPositiva(baseMenor) ||
+        !MedidaPositiva(ladoA) || !MedidaPositiva(ladoB) ||
+        !MedidaPositiva(altura)) return;
+
+    cout << "Perímetro = " << baseMayor + baseMenor + ladoA + ladoB << " u\n";
+    cout << "Área = " << ((baseMayor + baseMenor) * altura) / 2.0 << " u²\n";
+    cout << "Mediana = " << (baseMayor + baseMenor) / 2.0 << " u\n";
+}
+
+void OperacionesPoligonoRegular(int numeroLados, double lado)
+{
+    if (numeroLados < 3)
+    {
+        cout << "Error: un polígono debe tener al menos tres lados.\n";
+        return;
+    }
+    if (!MedidaPositiva(lado)) return;
+
+    const double perimetro = numeroLados * lado;
+    const double apotema = lado / (2 * tan(PI / numeroLados));
+
+    cout << "Perímetro = " << perimetro << " u\n";
+    cout << "Apotema = " << apotema << " u\n";
+    cout << "Área = " << (perimetro * apotema) / 2.0 << " u²\n";
 }

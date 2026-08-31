@@ -1,4 +1,4 @@
-// Conversi�n de Grados de Temperatura
+// Conversión de Grados de Temperatura
 #include <stdio.h>
 #include <string.h>
 #include <windows.h>
