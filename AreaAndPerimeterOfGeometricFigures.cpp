@@ -27,6 +27,7 @@ void OperacionesTrapecio(double baseMayor, double baseMenor, double ladoA,
                          double ladoB, double altura);
 void OperacionesPoligonoRegular(int numeroLados, double lado);
 bool MedidaPositiva(double medida);
+bool LeerOpcionMenu(int& opcion);
 
 int main()
 {
@@ -44,6 +45,7 @@ int main()
            respuesta == "S" || respuesta == "s" || respuesta == "yes" ||
            respuesta == "Y" || respuesta == "y")
     {
+        system("cls"); // Limpia la pantalla (Windows). En Linux/Mac, usa "clear".
         cout << ".: MENÚ :.\n";
         cout << "Área y perímetro de figuras geométricas\n";
         cout << "1.- Círculo\n";
@@ -54,7 +56,15 @@ int main()
         cout << "6.- Trapecio\n";
         cout << "7.- Polígono regular\n";
         cout << "Selecciona una opción: ";
-        cin >> opcion;
+        if (!LeerOpcionMenu(opcion))
+        {
+            if (!cin)
+            {
+                cout << "\nNo se pudo leer la opción.\n";
+                return 1;
+            }
+            continue;
+        }
 
         cout << "\n****************************\n";
 
@@ -149,6 +159,36 @@ int main()
 
     system("pause");    // Pase a getchar() si no funciona en tu sistema
     return 0;
+}
+
+bool LeerOpcionMenu(int& opcion)
+{
+    string entrada;
+    if (!(cin >> entrada))
+    {
+        return false;
+    }
+
+    int valor = 0;
+    for (char caracter : entrada)
+    {
+        if (caracter < '0' || caracter > '9' ||
+            valor > (7 - (caracter - '0')) / 10)
+        {
+            cout << "Opción no válida. Ingresa un número del 1 al 7.\n";
+            return false;
+        }
+        valor = valor * 10 + (caracter - '0');
+    }
+
+    if (valor < 1 || valor > 7)
+    {
+        cout << "Opción no válida. Ingresa un número del 1 al 7.\n";
+        return false;
+    }
+
+    opcion = valor;
+    return true;
 }
 
 bool MedidaPositiva(double medida)

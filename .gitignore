@@ -1,1 +1,18 @@
 /.vscode
+
+# Ejecutables y bibliotecas compiladas
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+*.out
+
+# Archivos temporales
+*.tmp
+*.temp
+*~
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
